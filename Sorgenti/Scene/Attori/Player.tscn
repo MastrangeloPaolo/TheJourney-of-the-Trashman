@@ -1,0 +1,792 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://Scene/Attori/Player.gd" type="Script" id=1]
+[ext_resource path="res://Immagini/Personaggio/PlayerMan.png" type="Texture" id=2]
+[ext_resource path="res://Scene/Attori/Sparo.gd" type="Script" id=3]
+[ext_resource path="res://Audio/Jump1.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/drop.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/MusicaLivelli.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Audio/WalkM.wav" type="AudioStream" id=8]
+[ext_resource path="res://Audio/CorsaM.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/Damage.wav" type="AudioStream" id=11]
+[ext_resource path="res://Audio/LancioBusta.wav" type="AudioStream" id=12]
+[ext_resource path="res://Audio/ColpoPunteruolo.wav" type="AudioStream" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12, 26.75 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14, 30.5 )
+
+[sub_resource type="Animation" id=19]
+resource_name = "AttaccoLanciaDx"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lance/CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.12, 0.18, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ), Vector2( 19, -4 ), Vector2( 18, -4 ), Vector2( -5, 0 ), Vector2( 1, 6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06, 0.16, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 20, 19, 20, 18 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "AttaccoLanciaSx"
+length = 0.3
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lance/CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.062, 0.121, 0.2, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -6, 0 ), Vector2( -31, -4 ), Vector2( -30, -4 ), Vector2( -2, 1 ), Vector2( -12, 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.01, 0.06, 0.16, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 20, 19, 20, 18 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Camminata"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 0.1, 0.3, 0.5, 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 2,
+"values": [ 16, 15, 14, 13, 12, 17 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Corsa"
+length = 0.65
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 2,
+"values": [ 17, 16, 15, 14, 13, 12 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Invincibilità"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.769345 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "LancioBusta"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.16, 0.23 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 23, 22, 21, 29 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Morte"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 2,
+"values": [ 8, 7, 6 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Salto"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 27, 26 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Scalata"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Scivolamento:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Scivolamento:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Scivolamento:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Scivolamento2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Scivolamento2:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Scivolamento3:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Scivolamento3:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.0231735 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Scivolamento2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Scivolamento3:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "ScalataTest"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Scivolamento:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Scivolamento:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Scivolamento:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Scivolamento2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Scivolamento2:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Scivolamento3:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Scivolamento3:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.0231735 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Scivolamento2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Scivolamento3:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "ScalataTest2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "Stomping"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 25 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "SuonoSalto"
+length = 0.25
+
+[sub_resource type="StreamTexture" id=28]
+flags = 4
+load_path = "res://.import/bullet.png-3466f66de0fa7191a6c61849097a5497.stex"
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 26, 2.875 )
+
+[sub_resource type="Animation" id=24]
+resource_name = "CamminataM"
+length = 4.3
+loop = true
+tracks/0/type = "audio"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "CorsaCamminata"
+length = 3.0
+tracks/0/type = "audio"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "CorsaM"
+length = 3.01
+tracks/0/type = "audio"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 9 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Drop"
+length = 0.1
+tracks/0/type = "audio"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "SuonoSalto"
+length = 0.28
+tracks/0/type = "audio"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "LancioBusta"
+length = 0.35
+tracks/0/type = "audio"
+tracks/0/path = NodePath("LancioBusta")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "Punteruolo"
+length = 0.25
+tracks/0/type = "audio"
+tracks/0/path = NodePath("LancioBusta")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="Player" type="KinematicBody2D"]
+pause_mode = 1
+self_modulate = Color( 1, 1, 1, 0.497906 )
+collision_layer = 2
+collision_mask = 37
+script = ExtResource( 1 )
+
+[node name="CollisionComponent" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 3.4 )
+shape = SubResource( 1 )
+
+[node name="OneWayTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="justDrop" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="justJump" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnockBackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RunTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="PlayerHitBox" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox"]
+modulate = Color( 0.180392, 0.0784314, 0.0784314, 1 )
+position = Vector2( -1, 2.5 )
+shape = SubResource( 2 )
+
+[node name="Sparo" type="Position2D" parent="."]
+position = Vector2( -18, -14 )
+script = ExtResource( 3 )
+
+[node name="Cooldown" type="Timer" parent="Sparo"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/AttaccoLanciaDx = SubResource( 19 )
+anims/AttaccoLanciaSx = SubResource( 13 )
+anims/Camminata = SubResource( 7 )
+anims/Corsa = SubResource( 8 )
+anims/Idle = SubResource( 5 )
+"anims/Invincibilità" = SubResource( 4 )
+anims/LancioBusta = SubResource( 16 )
+anims/Morte = SubResource( 9 )
+anims/RESET = SubResource( 6 )
+anims/Salto = SubResource( 12 )
+anims/Scalata = SubResource( 11 )
+anims/ScalataTest = SubResource( 17 )
+anims/ScalataTest2 = SubResource( 18 )
+anims/Stomping = SubResource( 15 )
+anims/SuonoSalto = SubResource( 20 )
+
+[node name="Scivolamento3" type="CPUParticles2D" parent="."]
+position = Vector2( -14, 20 )
+lifetime = 0.87
+texture = SubResource( 28 )
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector2( 0, -98 )
+radial_accel = 31.03
+radial_accel_random = 0.26
+scale_amount = 0.6
+color = Color( 0.560784, 0.552941, 0.552941, 0.513726 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1, -8 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+hframes = 6
+vframes = 5
+frame = 20
+
+[node name="Scivolamento" type="CPUParticles2D" parent="."]
+position = Vector2( -15, 28 )
+lifetime = 0.87
+texture = SubResource( 28 )
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector2( 0, -98 )
+radial_accel = 31.03
+radial_accel_random = 0.26
+scale_amount = 0.6
+color = Color( 0.560784, 0.552941, 0.552941, 0.513726 )
+
+[node name="Scivolamento2" type="CPUParticles2D" parent="."]
+position = Vector2( -15, -23 )
+lifetime = 0.87
+texture = SubResource( 28 )
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector2( 0, -98 )
+radial_accel = 31.03
+radial_accel_random = 0.26
+scale_amount = 0.6
+color = Color( 0.560784, 0.552941, 0.552941, 0.513726 )
+
+[node name="Lance" type="Area2D" parent="."]
+position = Vector2( 5, 0 )
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lance"]
+position = Vector2( 0, 6 )
+shape = SubResource( 14 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -9, 25 )
+enabled = true
+cast_to = Vector2( -11, 0 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="AnimationSound" type="AnimationPlayer" parent="."]
+root_node = NodePath("../StreamAudio")
+anims/CamminataM = SubResource( 24 )
+anims/CorsaCamminata = SubResource( 23 )
+anims/CorsaM = SubResource( 25 )
+anims/Drop = SubResource( 21 )
+anims/SuonoSalto = SubResource( 22 )
+
+[node name="StreamAudio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Drop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -1.0
+
+[node name="MusicaGenerale" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 7 )
+volume_db = -6.0
+autoplay = true
+
+[node name="Danno" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+
+[node name="LancioBusta" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 13 )
+
+[node name="AnimationSoundAttack" type="AnimationPlayer" parent="."]
+anims/LancioBusta = SubResource( 26 )
+anims/Punteruolo = SubResource( 27 )
+
+[connection signal="timeout" from="OneWayTimer" to="." method="_on_OneWayTimer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
+[connection signal="timeout" from="KnockBackTimer" to="." method="_on_KnockBackTimer_timeout"]
+[connection signal="area_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_area_entered"]
+[connection signal="area_exited" from="PlayerHitBox" to="." method="_on_PlayerHitBox_area_exited"]
+[connection signal="body_entered" from="PlayerHitBox" to="." method="_on_Area2D_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="Lance" to="." method="_on_Lance_body_entered"]

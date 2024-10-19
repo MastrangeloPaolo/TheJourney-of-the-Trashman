@@ -1,0 +1,139 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Immagini/Nemici/NCarta/NCartaMorte.png" type="Texture" id=1]
+[ext_resource path="res://Scene/Attori/NCarta.gd" type="Script" id=2]
+[ext_resource path="res://Scene/Attori/MorteCarta.tres" type="Animation" id=3]
+[ext_resource path="res://Audio/RaccoltaNota.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Raccolta.wav" type="AudioStream" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 17, 19 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "Camminata"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 2,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Raccolto"
+length = 0.23
+tracks/0/type = "audio"
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 13, 6 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 19, 19 )
+
+[node name="NCarta" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 67
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -1.5 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 2
+frame = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 5 )
+shape = SubResource( 1 )
+
+[node name="FloorDetectorRight" type="RayCast2D" parent="."]
+position = Vector2( 8, -8 )
+enabled = true
+cast_to = Vector2( 0, 35 )
+collision_mask = 65
+
+[node name="FloorDetectorLeft" type="RayCast2D" parent="."]
+position = Vector2( -4, -8 )
+enabled = true
+cast_to = Vector2( 0, 35 )
+collision_mask = 65
+
+[node name="CollisionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/Camminata = SubResource( 7 )
+anims/MorteCarta = ExtResource( 3 )
+anims/RESET = SubResource( 3 )
+anims/Raccolto = SubResource( 6 )
+
+[node name="Raccolta" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Raccolta"]
+modulate = Color( 0.827451, 0.0941176, 0.886275, 1 )
+self_modulate = Color( 0.921569, 0.223529, 0.941176, 1 )
+position = Vector2( 1, 18 )
+shape = SubResource( 4 )
+
+[node name="TimerRevive" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="TimerNoCollect" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="Body" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+modulate = Color( 0.0509804, 0.117647, 0.121569, 1 )
+position = Vector2( 2, 5 )
+shape = SubResource( 5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+max_distance = 700.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="Raccolta" to="." method="_on_Raccolta_body_entered"]
+[connection signal="timeout" from="TimerRevive" to="." method="_on_TimerRevive_timeout"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]
+[connection signal="body_exited" from="Body" to="." method="_on_Body_body_exited"]

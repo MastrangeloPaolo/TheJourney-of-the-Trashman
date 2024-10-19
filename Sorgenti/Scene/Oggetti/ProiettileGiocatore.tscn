@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scene/Oggetti/ProiettileGiocatore.gd" type="Script" id=2]
+[ext_resource path="res://Immagini/Oggetti/SacchettoCatturaVetro.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+[sub_resource type="CapsuleShape2D" id=6]
+height = 10.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "Rotation"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 10.7, 360.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "destroy"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="ProiettileGiocatore" type="RigidBody2D"]
+material = SubResource( 1 )
+rotation = 0.198968
+collision_layer = 8
+collision_mask = 17
+continuous_cd = 2
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="Particles2D" type="CPUParticles2D" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 2 )
+emitting = false
+lifetime = 0.3
+speed_scale = 3.0
+local_coords = false
+texture = ExtResource( 3 )
+spread = 0.0
+gravity = Vector2( 0, 100 )
+scale_amount = 0.8
+color = Color( 1, 1, 1, 0.705882 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 0, 4.76837e-07 )
+scale = Vector2( 0.118164, 0.124512 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Rotation = SubResource( 7 )
+anims/destroy = SubResource( 5 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]

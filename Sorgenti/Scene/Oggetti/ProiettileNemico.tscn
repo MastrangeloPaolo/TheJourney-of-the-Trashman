@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scene/Oggetti/ProiettileNemico.gd" type="Script" id=2]
+[ext_resource path="res://Immagini/Oggetti/TappoVetro.png" type="Texture" id=3]
+[ext_resource path="res://Audio/SuonoTappo.wav" type="AudioStream" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 3, 8 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "destroy"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="ProiettileNemico" type="RigidBody2D"]
+material = SubResource( 1 )
+collision_layer = 8
+collision_mask = 67
+continuous_cd = 2
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 1.19209e-07, 2 )
+scale = Vector2( 0.268555, 0.307373 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/destroy = SubResource( 5 )
+
+[node name="SuonoRimbalzo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+max_distance = 500.0
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scene/Opzioni/BottoneInput.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/PTSerif-Italic.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[node name="BottoneInput" type="Button"]
+margin_right = 80.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 1 )
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_BottoneInput_pressed"]

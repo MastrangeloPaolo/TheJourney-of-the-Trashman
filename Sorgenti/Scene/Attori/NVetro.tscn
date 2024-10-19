@@ -1,0 +1,180 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scene/Attori/NVetro.gd" type="Script" id=1]
+[ext_resource path="res://Immagini/Nemici/NVetro/SpriteNVetro.png" type="Texture" id=2]
+[ext_resource path="res://Scene/Attori/Sparo.gd" type="Script" id=3]
+[ext_resource path="res://Audio/SparoNVetro.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scene/Attori/AttoriMorte.tres" type="Animation" id=5]
+[ext_resource path="res://Immagini/Oggetti/TappoVetro.png" type="Texture" id=6]
+[ext_resource path="res://Audio/Raccolta.wav" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 19, 13 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 20, 13.5 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Raccolto"
+length = 0.2
+tracks/0/type = "audio"
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Sparo"
+length = 0.6
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1, 1, 0 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TappoVetro:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.01, 0.01 ), Vector2( 0.2, 0.2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TappoVetro:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.01, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[node name="NVetro" type="KinematicBody2D"]
+collision_layer = 20
+collision_mask = 67
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -1.5 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+hframes = 5
+
+[node name="TappoVetro" type="Sprite" parent="."]
+visible = false
+position = Vector2( -18, 6 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+offset = Vector2( 1.9, 2.1 )
+
+[node name="FloorDetectorLeft" type="RayCast2D" parent="."]
+position = Vector2( -12, 16 )
+enabled = true
+cast_to = Vector2( 0, 11 )
+collision_mask = 65
+
+[node name="FloorDetectorRight" type="RayCast2D" parent="."]
+position = Vector2( 16, 8 )
+enabled = true
+cast_to = Vector2( 0, 19 )
+collision_mask = 65
+
+[node name="CollisionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 4
+position = Vector2( 0, 11 )
+shape = SubResource( 1 )
+
+[node name="Sparo" type="Position2D" parent="."]
+position = Vector2( -19, 6 )
+script = ExtResource( 3 )
+
+[node name="Cooldown" type="Timer" parent="Sparo"]
+process_mode = 0
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+modulate = Color( 0.027451, 0.964706, 0.109804, 1 )
+position = Vector2( 0, 10.5 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/MorteVetro = ExtResource( 5 )
+anims/RESET = SubResource( 3 )
+anims/Raccolto = SubResource( 5 )
+anims/Sparo = SubResource( 4 )
+
+[node name="TimerRevive" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerNoCollect" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -6.896
+max_distance = 1000.0
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="TimerRevive" to="." method="_on_TimerRevive_timeout"]

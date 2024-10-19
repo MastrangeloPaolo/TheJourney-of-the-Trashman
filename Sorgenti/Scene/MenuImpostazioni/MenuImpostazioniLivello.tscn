@@ -1,0 +1,196 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Fonts/PTSerif-Italic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scene/MenuImpostazioni/MenuImpostazioniLivello.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0705882, 0.054902, 0.054902, 0.47451 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="DynamicFont" id=5]
+size = 34
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 0.392157 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.6, 0.6, 0.6, 0.262745 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.0705882, 0.160784, 0.0313726, 0.392157 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.6, 0.6, 0.6, 0.262745 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0705882, 0.160784, 0.0313726, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.2, 0.0627451, 0.0588235, 0.392157 )
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.6, 0.6, 0.6, 0.262745 )
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.2, 0.0627451, 0.0588235, 1 )
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="MenuImpostazioniLivello" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -118.0
+margin_top = -222.0
+margin_right = 119.0
+margin_bottom = 232.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Time" type="Label" parent="Panel"]
+margin_left = -2.0
+margin_top = 23.0
+margin_right = 97.0
+margin_bottom = 69.0
+custom_fonts/font = SubResource( 5 )
+text = "Time:"
+align = 1
+
+[node name="TimePassed" type="Label" parent="Panel"]
+margin_left = 96.0
+margin_top = 22.0
+margin_right = 210.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 18 )
+text = "#.#"
+align = 1
+
+[node name="EnemyKill" type="Label" parent="Panel"]
+margin_top = 88.0
+margin_right = 237.0
+margin_bottom = 133.0
+custom_fonts/font = SubResource( 5 )
+text = "Enemies killed"
+align = 1
+
+[node name="EnemyDestroy" type="Label" parent="Panel"]
+margin_left = 2.0
+margin_top = 120.0
+margin_right = 238.0
+margin_bottom = 187.0
+custom_fonts/font = SubResource( 19 )
+text = "#/#"
+align = 1
+
+[node name="Page" type="Label" parent="Panel"]
+margin_left = 1.0
+margin_top = 183.0
+margin_right = 237.0
+margin_bottom = 228.0
+custom_fonts/font = SubResource( 5 )
+text = "Pages found"
+align = 1
+
+[node name="PageFound" type="Label" parent="Panel"]
+margin_left = 1.0
+margin_top = 215.0
+margin_right = 238.0
+margin_bottom = 282.0
+custom_fonts/font = SubResource( 6 )
+text = "#/#"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 2.0
+margin_top = 268.0
+margin_right = 236.0
+margin_bottom = 455.0
+alignment = 2
+
+[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 17.0
+margin_right = 234.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 11 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/normal = SubResource( 15 )
+text = "Settings"
+
+[node name="Resume" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 75.0
+margin_right = 234.0
+margin_bottom = 129.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/focus = SubResource( 17 )
+custom_styles/normal = SubResource( 3 )
+text = "Resume"
+
+[node name="Quit" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 133.0
+margin_right = 234.0
+margin_bottom = 187.0
+input_pass_on_modal_close_click = false
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 4 )
+text = "Quit"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4096.0
+
+[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

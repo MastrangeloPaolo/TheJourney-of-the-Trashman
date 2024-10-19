@@ -1,0 +1,559 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://Fonts/PTSerif-Italic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scene/Livelli/Mercante.gd" type="Script" id=2]
+[ext_resource path="res://Scene/ASchermo/MonetePossedute.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/Attori/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/ASchermo/UIRidotto.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Immagini/Mercante/mercanteIdle.png" type="Texture" id=6]
+[ext_resource path="res://Immagini/Mercante/pavimentoMercante.png" type="Texture" id=7]
+[ext_resource path="res://Audio/MusicaMappe.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Scene/Oggetti/BoxDialogo.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Audio/AzioneErrata.wav" type="AudioStream" id=10]
+[ext_resource path="res://Scene/Livelli/Merce.gd" type="Script" id=11]
+[ext_resource path="res://Immagini/Mercante/pavimentoMercante.png" type="Texture" id=12]
+[ext_resource path="res://Scene/Oggetti/BloccodAria.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Immagini/Mercante/mercante3.png" type="Texture" id=15]
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 256, 256, 0, 256, 0, 0, 256, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
+
+[sub_resource type="TileSet" id=12]
+0/name = "pavimentoMercante.png 0"
+0/texture = ExtResource( 7 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 256, 256 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 11 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "muro.png 1"
+1/texture = ExtResource( 12 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 256, 256 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 15 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "muro.png 2"
+2/texture = ExtResource( 12 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 256, 0, 256, 256 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+
+[sub_resource type="Animation" id=21]
+resource_name = "MercanteIdle"
+length = 0.601
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("../MercanteIdle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 )
+}
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 0.894118 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0509804, 0.929412, 0.0509804, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.184314, 0.192157, 0.184314, 1 )
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=17]
+resource_name = "MercanteIdle"
+length = 0.601
+loop = true
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("../MercanteIdle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "VirtualCoin"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../MonetePossedute2:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, -1 ), Vector2( 8, 73 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../MonetePossedute2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "flash"
+length = 0.301
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Panel/Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AnimationPlayer/AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 10 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="Mercante" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 2 )
+
+[node name="Mercante3" type="Sprite" parent="."]
+scale = Vector2( 1.07, 1 )
+texture = ExtResource( 15 )
+centered = false
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 15, -8 )
+scale = Vector2( 0.125, 0.125 )
+tile_set = SubResource( 12 )
+cell_size = Vector2( 256, 256 )
+show_collision = true
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0 )
+
+[node name="MercanteIdle" type="Sprite" parent="."]
+position = Vector2( 712, 364 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MercanteIdle"]
+autoplay = "MercanteIdle"
+anims/MercanteIdle = SubResource( 21 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 307, 375 )
+scale = Vector2( 2, 2 )
+
+[node name="Sprite" parent="Player" index="11"]
+flip_h = true
+
+[node name="MusicaGenerale" parent="Player" index="20"]
+autoplay = false
+
+[node name="DialogBox" parent="." instance=ExtResource( 9 )]
+anchor_left = 0.780303
+anchor_top = 0.653435
+anchor_right = 0.780303
+anchor_bottom = 0.653435
+margin_left = 614.0
+margin_top = 392.0
+margin_right = 614.0
+margin_bottom = 392.0
+event1 = "interact"
+
+[node name="Panel" parent="DialogBox" index="0"]
+margin_left = 0.0
+margin_top = -156.0
+margin_right = 192.0
+margin_bottom = -84.0
+
+[node name="Label" parent="DialogBox/Panel" index="0"]
+margin_left = 1.0
+margin_right = 193.0
+margin_bottom = 93.0
+text = "Welcome home!
+Do you wish to upgrade your 
+abilities?  press %1
+"
+
+[node name="Panel" type="Panel" parent="."]
+pause_mode = 2
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 416.0
+margin_top = 146.0
+margin_right = 771.0
+margin_bottom = 525.0
+script = ExtResource( 11 )
+
+[node name="Panel" type="Panel" parent="Panel"]
+margin_left = -137.0
+margin_top = -11.0
+margin_right = 364.0
+margin_bottom = 348.0
+custom_styles/panel = SubResource( 20 )
+
+[node name="Speed" type="Button" parent="Panel"]
+margin_left = -66.0
+margin_right = 22.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 1 )
+action_mode = 0
+text = "Speed"
+
+[node name="PanelSpeed" type="Panel" parent="Panel"]
+margin_left = 88.0
+margin_top = 3.0
+margin_right = 356.0
+margin_bottom = 50.0
+rect_scale = Vector2( 0.99, 0.95 )
+theme = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="heart" type="Button" parent="Panel"]
+margin_left = -66.0
+margin_top = 55.0
+margin_right = 20.0
+margin_bottom = 102.0
+custom_fonts/font = SubResource( 1 )
+text = "Heart"
+
+[node name="PanelHeart" type="Panel" parent="Panel"]
+margin_left = 86.0
+margin_top = 56.0
+margin_right = 356.0
+margin_bottom = 103.0
+rect_scale = Vector2( 0.99, 0.95 )
+theme = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="Jump" type="Button" parent="Panel"]
+margin_left = -66.0
+margin_top = 109.0
+margin_right = 19.0
+margin_bottom = 156.0
+custom_fonts/font = SubResource( 1 )
+text = "Jump"
+
+[node name="PanelJump" type="Panel" parent="Panel"]
+margin_left = 85.0
+margin_top = 108.0
+margin_right = 356.0
+margin_bottom = 155.0
+rect_scale = Vector2( 0.99, 0.95 )
+theme = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="durationBullet" type="Button" parent="Panel"]
+margin_left = -128.0
+margin_top = 162.0
+margin_right = 80.0
+margin_bottom = 209.0
+custom_fonts/font = SubResource( 1 )
+text = "Duration Bullet"
+
+[node name="PanelDurationBullet" type="Panel" parent="Panel"]
+margin_left = 86.0
+margin_top = 162.0
+margin_right = 356.0
+margin_bottom = 209.0
+rect_scale = Vector2( 0.99, 0.95 )
+theme = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="speedBullet" type="Button" parent="Panel"]
+margin_left = -106.0
+margin_top = 216.0
+margin_right = 63.0
+margin_bottom = 263.0
+custom_fonts/font = SubResource( 1 )
+text = "Speed Bullet"
+
+[node name="PanelSpeedBullet" type="Panel" parent="Panel"]
+margin_left = 86.0
+margin_top = 216.0
+margin_right = 356.0
+margin_bottom = 263.0
+rect_scale = Vector2( 0.99, 0.95 )
+theme = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="Panel2" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_left = 86.0
+margin_top = 2.0
+margin_right = -1.0
+margin_bottom = 49.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Panel3" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_left = 86.0
+margin_top = 55.0
+margin_right = -1.0
+margin_bottom = 102.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Panel4" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_left = 85.0
+margin_top = 107.0
+margin_bottom = 154.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Panel5" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_left = 85.0
+margin_top = 161.0
+margin_bottom = 208.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Panel6" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_left = 85.0
+margin_top = 215.0
+margin_bottom = 262.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Label" type="Label" parent="Panel"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -128.0
+margin_top = -64.0
+margin_right = 355.0
+margin_bottom = 3.0
+custom_fonts/font = SubResource( 5 )
+text = "insufficient coin"
+align = 1
+
+[node name="Done" type="Button" parent="Panel"]
+margin_left = 167.0
+margin_top = 293.0
+margin_right = 275.0
+margin_bottom = 338.0
+custom_fonts/font = SubResource( 8 )
+text = "done"
+
+[node name="Reset" type="Button" parent="Panel"]
+margin_left = -66.0
+margin_top = 293.0
+margin_right = 32.0
+margin_bottom = 338.0
+custom_fonts/font = SubResource( 7 )
+text = "reset"
+
+[node name="LabelCoinSpeed" type="Label" parent="Panel"]
+margin_top = -6.0
+margin_right = 64.0
+margin_bottom = 35.0
+custom_colors/font_color = Color( 1, 0.701961, 0, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "####"
+
+[node name="LabelCoinLife" type="Label" parent="Panel"]
+margin_top = 49.0
+margin_right = 64.0
+margin_bottom = 90.0
+custom_colors/font_color = Color( 1, 0.701961, 0, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "####"
+
+[node name="LabelCoinJump" type="Label" parent="Panel"]
+margin_top = 102.0
+margin_right = 64.0
+margin_bottom = 143.0
+custom_colors/font_color = Color( 1, 0.701961, 0, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "####"
+
+[node name="LabelCoinDurationB" type="Label" parent="Panel"]
+margin_left = 60.0
+margin_top = 153.0
+margin_right = 124.0
+margin_bottom = 194.0
+custom_colors/font_color = Color( 1, 0.701961, 0, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "####"
+
+[node name="LabelCoinSpeedB" type="Label" parent="Panel"]
+margin_left = 42.0
+margin_top = 208.0
+margin_right = 106.0
+margin_bottom = 249.0
+custom_colors/font_color = Color( 1, 0.701961, 0, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "####"
+
+[node name="UI" parent="." instance=ExtResource( 5 )]
+pause_mode = 2
+
+[node name="IconaMenuImpostazioni" parent="UI" index="2"]
+margin_bottom = -493.0
+
+[node name="MenuImpostazioniMappa" parent="UI/IconaMenuImpostazioni" index="1"]
+margin_top = 244.0
+margin_bottom = 244.0
+
+[node name="Panel" parent="UI/IconaMenuImpostazioni" index="3"]
+margin_top = 76.5
+margin_bottom = 423.5
+
+[node name="Opzioni" parent="UI/IconaMenuImpostazioni/Panel" index="0"]
+margin_top = -108.0
+margin_bottom = 149.0
+
+[node name="Diario" parent="UI" index="3"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+anims/MercanteIdle = SubResource( 17 )
+anims/RESET = SubResource( 18 )
+anims/VirtualCoin = SubResource( 13 )
+anims/flash = SubResource( 19 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="UI/AnimationPlayer"]
+
+[node name="MonetePossedute2" parent="." instance=ExtResource( 3 )]
+visible = false
+modulate = Color( 1, 1, 1, 0.415686 )
+margin_left = 8.0
+margin_top = -0.999966
+margin_right = 165.0
+margin_bottom = 60.0
+
+[node name="AreaBlock" parent="." instance=ExtResource( 13 )]
+position = Vector2( 580, 337 )
+
+[node name="AreaBlock2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 253, 231 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 8 )
+volume_db = -10.65
+autoplay = true
+
+[connection signal="pressed" from="Panel/Speed" to="." method="_on_Speed_pressed"]
+[connection signal="pressed" from="Panel/heart" to="." method="_on_heart_pressed"]
+[connection signal="pressed" from="Panel/Jump" to="." method="_on_Jump_pressed"]
+[connection signal="pressed" from="Panel/durationBullet" to="." method="_on_durationBullet_pressed"]
+[connection signal="pressed" from="Panel/speedBullet" to="." method="_on_speedBullet_pressed"]
+[connection signal="pressed" from="Panel/Done" to="." method="_on_Done_pressed"]
+[connection signal="pressed" from="Panel/Reset" to="." method="_on_Reset_pressed"]
+
+[editable path="Player"]
+[editable path="DialogBox"]
+[editable path="UI"]
+[editable path="UI/IconaMenuImpostazioni"]
+[editable path="UI/IconaMenuImpostazioni/MenuImpostazioniMappa"]
+[editable path="UI/IconaMenuImpostazioni/Panel"]
+[editable path="UI/IconaMenuImpostazioni/Panel/Opzioni"]
+[editable path="UI/IconaMenuImpostazioni/Panel/Opzioni/Difficulty"]
+[editable path="UI/Diario"]

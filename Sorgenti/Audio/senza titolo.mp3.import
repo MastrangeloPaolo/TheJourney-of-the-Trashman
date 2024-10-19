@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/senza titolo.mp3-0eabc2ec51a2c2bd0300b8c0a73ef628.mp3str"
+
+[deps]
+
+source_file="res://Audio/senza titolo.mp3"
+dest_files=[ "res://.import/senza titolo.mp3-0eabc2ec51a2c2bd0300b8c0a73ef628.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

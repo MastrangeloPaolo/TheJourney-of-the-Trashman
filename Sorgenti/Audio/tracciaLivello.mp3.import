@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/tracciaLivello.mp3-8dad9b3a7c01671c17295bf0411ca280.mp3str"
+
+[deps]
+
+source_file="res://Audio/tracciaLivello.mp3"
+dest_files=[ "res://.import/tracciaLivello.mp3-8dad9b3a7c01671c17295bf0411ca280.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

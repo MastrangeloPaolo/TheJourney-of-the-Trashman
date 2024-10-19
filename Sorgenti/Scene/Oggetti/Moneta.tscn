@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Immagini/Oggetti/Monete/coin.png" type="Texture" id=2]
+[ext_resource path="res://Audio/coin_pickup.wav" type="AudioStream" id=3]
+[ext_resource path="res://Scene/Oggetti/Moneta.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.0
+
+[sub_resource type="Animation" id=4]
+resource_name = "Moneta"
+length = 0.9
+loop = true
+step = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Moneta:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Moneta:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer:method_call_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Raccolta"
+tracks/0/type = "audio"
+tracks/0/path = NodePath("Pickup")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Moneta:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Moneta:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -45 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Suono"
+tracks/0/type = "audio"
+tracks/0/path = NodePath("Pickup")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="Coin" type="Area2D"]
+self_modulate = Color( 1, 1, 1, 0.101961 )
+position = Vector2( 0, -5 )
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource( 4 )
+
+[node name="Moneta" type="Sprite" parent="."]
+scale = Vector2( 0.209167, 0.186992 )
+texture = ExtResource( 2 )
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1, -2 )
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+anims/Moneta = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+anims/Raccolta = SubResource( 7 )
+anims/Suono = SubResource( 6 )
+
+[node name="Pickup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+pitch_scale = 0.81
+
+[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]

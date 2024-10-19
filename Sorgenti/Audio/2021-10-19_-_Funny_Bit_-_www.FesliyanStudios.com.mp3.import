@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/2021-10-19_-_Funny_Bit_-_www.FesliyanStudios.com.mp3-ca87906fe7d1755dfe3bc0370036fa39.mp3str"
+
+[deps]
+
+source_file="res://Audio/2021-10-19_-_Funny_Bit_-_www.FesliyanStudios.com.mp3"
+dest_files=[ "res://.import/2021-10-19_-_Funny_Bit_-_www.FesliyanStudios.com.mp3-ca87906fe7d1755dfe3bc0370036fa39.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
